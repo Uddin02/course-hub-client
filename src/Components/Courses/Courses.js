@@ -6,13 +6,13 @@ const Courses = () => {
     return (
         <div>
             <div className='lg:m-8 m-2'>
-                <div className='grid lg:grid-rows-1'>
-                    <div className='grid lg:grid-cols-2 gap-4'>
-                        <div className='grid lg:grid-cols-3'>
+                <div className=''>
+                    <div className='flex justify-evenly'>
+                        <div className=''>
                             <LeftSideNav/>
                         </div>
 
-                        <div className='grid lg:grid-cols-9'>
+                        <div className=''>
                             <CourseCards/>
                         </div>
                     </div>

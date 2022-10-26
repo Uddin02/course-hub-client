@@ -25,7 +25,7 @@ export const routes = createBrowserRouter([
             {
                 path: 'courses',
                 element: <Courses/>,
-                // loader: () => fetch('https://dragon-news-server-seven.vercel.app/news')
+                loader: () => fetch('http://localhost:5000/courses-details')
             },
             {
                 path: '/category/:id',
