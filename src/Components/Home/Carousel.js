@@ -41,7 +41,7 @@ const Carousel = () => {
                   Click the button below to view the courses in this category.
                 </p>{" "}
                 <div className="card-actions justify-start">
-                  <button className="btn btn-outline btn-info"><Link to='/courses'>Know more</Link></button>
+                  <button className="text-sky-400"><Link to='/courses'>Know more</Link></button>
                 </div>
               </div>
             </div>
