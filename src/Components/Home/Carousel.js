@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
+import { Link } from "react-router-dom";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const Carousel = () => {
+  const [categories, setCategories] = useState([]);
+  // console.log(categories)
+
+  useEffect(() => {
+    fetch("http://localhost:5000/course-categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(data));
+  }, []);
 
   return (
     <div>
@@ -20,55 +29,24 @@ const Carousel = () => {
         modules={[Pagination, Navigation]}
         className="mySwiper w-10/12"
       >
-        <SwiperSlide>
-          <div className="card card-compact w-80 bg-base-100 shadow-xl">
-            <figure>
-              <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">Shoes!</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-start">
-                <button className="btn btn-outline btn-info">Buy Now</button>
+        {categories.map((category) => (
+          <SwiperSlide key={category.id}>
+            <div className="ml-9 mb-6 card card-compact w-80 bg-base-100 shadow-xl">
+              <figure>
+                <img src={category.image} alt="Shoes" />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{category.name}</h2>
+                <p>
+                  Click the button below to view the courses in this category.
+                </p>{" "}
+                <div className="card-actions justify-start">
+                  <button className="btn btn-outline btn-info"><Link to='/courses'>Know more</Link></button>
+                </div>
               </div>
             </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="rounded-lg"
-            src="https://picsum.photos/700/600"
-            alt="slider1"
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="rounded-lg"
-            src="https://picsum.photos/700/600"
-            alt="slider1"
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="rounded-lg"
-            src="https://picsum.photos/700/600"
-            alt="slider1"
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="rounded-lg"
-            src="https://picsum.photos/700/600"
-            alt="slider1"
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="rounded-lg"
-            src="https://picsum.photos/700/600"
-            alt="slider1"
-          ></img>
-        </SwiperSlide>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

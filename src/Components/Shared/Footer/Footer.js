@@ -4,7 +4,7 @@ import Images from "../../../assets/CourseHub.png";
 
 const Footer = () => {
   return (
-    <footer className="footer items-center p-4 bg-gray-50 text-gray-700">
+    <footer className="footer items-center p-4 bg-gray-50 text-gray-700  ">
       <div className="items-center grid-flow-col">
         <img className="w-24" src={Images} alt="" />
         <p>Copyright © 2022 - All right reserved</p>

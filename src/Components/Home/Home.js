@@ -16,7 +16,7 @@ const Home = () => {
                 </div>
             </div>
             <div className='my-3'>
-                <p className='lg:text-5xl mb-10 text-center'><span className='border-b-4 border-sky-500'>Explore</span> our Courses</p>
+                <p className='lg:text-5xl mb-14 text-center'><span className='border-b-4 border-sky-500'>Explore</span> our Courses</p>
                 <Carousel/>
             </div>
             <div className='mb-8'>

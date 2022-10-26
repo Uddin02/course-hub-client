@@ -4,6 +4,7 @@ import Courses from "../../Components/Courses/Courses";
 import Home from "../../Components/Home/Home";
 import Login from "../../Components/Login/Login/Login";
 import Register from "../../Components/Login/Register/Register";
+import CourseDetails from "../../Components/PrivateRoutes/CourseDetails/CourseDetails";
 import NotFound from "../../Components/Shared/NotFound/NotFound";
 import Main from "../../layout/Main";
 
@@ -30,12 +31,12 @@ export const routes = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <Category/>,
-                // loader: ({params}) => fetch(`https://dragon-news-server-seven.vercel.app/category/${params.id}`)
+                loader: ({params}) => fetch(`http://localhost:5000/category/${params.id}`)
             },
             {
                 path: '/coursesDetails/:id',
-                element: <Courses/>,
-                // loader: ({params}) => fetch(`https://dragon-news-server-seven.vercel.app/news/${params.id}`)
+                element: <CourseDetails/>,
+                loader: ({params}) => fetch(`http://localhost:5000/coursesDetails/${params.id}`)
             },
             {
                 path: '/login',
