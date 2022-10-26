@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <RouterProvider router={routes}></RouterProvider>
-      <ToastContainer/>
+      <ToastContainer position="top-center"/>
     </div>
   );
 }

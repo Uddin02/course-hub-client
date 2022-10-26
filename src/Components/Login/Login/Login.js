@@ -1,8 +1,47 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Logo from "../../../assets/CourseHub.png";
 import Image from "../../../assets/login.png";
+import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 
 const Login = () => {
+  
+  const { signIn, setLoading } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        // console.log(user);
+        form.reset();
+        // navigate(from, {replace: true});
+        if (user.emailVerified) {
+          navigate(from, { replace: true });
+          toast.success("Login successful");
+        } else {
+          // ,{position: "top-right"}
+          toast.error(
+            "Your email is not verified. Please verify your email address."
+          );
+        }
+      })
+      .catch((error) => toast(error.message))
+
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div className="bg-[#e3eafe]">
       <p className="text-2xl text-center font-bold pt-5 text-sky-400 pb-5">
@@ -13,7 +52,7 @@ const Login = () => {
           <div>
             <img className=" max-h-[515px] w-auto mx-auto" src={Image} alt="" />
           </div>
-          <div className="flex w-auto flex-wrap mx-2">
+          <div onSubmit={handleSubmit} className="flex w-auto flex-wrap mx-2">
             <div className="w-full px-4">
               <div className="max-w-[520px] mx-auto text-center bg-white rounded-lg relative overflow-hidden py-5 px-8 sm:px-12 md:px-[60px] ">
                 <div className="md:mb-10 text-center">

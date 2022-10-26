@@ -1,8 +1,64 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import Logo from "../../../assets/CourseHub.png";
 import Image from "../../../assets/login.png";
+import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 
 const Register = () => {
+
+  const { createUser, updateUserProfile, verifyEmail, signInWithGoogle } = useContext(AuthContext);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    // const photoURL = form.photoURL.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(name,  email, password);
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        toast.success("Registration uccessful");
+        console.log(user);
+        form.reset();
+        handleUpdateUserProfile(name); //, photoURL
+        handleEmailVerification();
+        toast.info("Please verify your email address before login");
+      })
+      .catch((error) => toast.warning(error.message));
+  };
+
+  const handleUpdateUserProfile = (name, photoURL) => {
+    const profile = {
+      displayName: name,
+      // photoURL: photoURL,
+    };
+
+    updateUserProfile(profile)
+      .then(() => {})
+      .catch((e) => toast.warning(e));
+  };
+
+  const handleEmailVerification = () => {
+    verifyEmail()
+      .then(() => {})
+      .catch((e) => toast.warning(e));
+  };
+
+  const handleGoogleSignIn = () =>{
+    signInWithGoogle()
+    .then (result => {
+      const user = result.user;
+      console.log(user);
+    })
+    .catch(error => console.error(error));
+  }
+
+
   return (
     <div className="bg-[#e3eafe]">
       <p className="text-2xl text-center font-bold pt-5 text-sky-400 pb-5">
@@ -24,7 +80,7 @@ const Register = () => {
                     <img src={Logo} alt="logo" />
                   </Link>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-4">
                     <input
                       type="text"
@@ -172,7 +228,7 @@ const Register = () => {
                       </svg>
                     </Link>
                   </li>
-                  <li className="px-2 w-full">
+                  <li onClick={handleGoogleSignIn} className="px-2 w-full">
                     <Link
                       href="#"
                       className="
@@ -214,7 +270,7 @@ const Register = () => {
                   Forget Password?
                 </Link>
                 <p className="text-base text-[#757575] pb-4">
-                  Not a member yet?
+                   Already a member?
                   <span className="pl-2">
                     <Link to="/login" className="text-primary hover:underline">
                       Log In

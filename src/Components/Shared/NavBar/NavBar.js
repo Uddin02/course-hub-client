@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { FaUserAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import Images from "../../../assets/CourseHub.png";
-
+import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div className="bg-gray-50">
       <div className="px-4 py-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -62,20 +74,36 @@ const NavBar = () => {
                 Blog
               </NavLink>
             </li>
-            
+
             <li>
-              <NavLink
-                to="/login"
-                aria-label="login"
-                title="login"
-                className={({ isActive }) =>
-                  isActive
-                    ? "font-medium tracking-wide text-blue-400 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                    : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                }
-              >
-                Login
-              </NavLink>
+              <div className="flex items-center space-x-8 font-medium  text-gray-700">
+                {user?.photoURL ? (
+                  <img style={{ height: "45px" }} className="rounded-full" src={user?.photoURL} alt="" />
+                ) : (
+                  <FaUserAlt className="text-sky-400"></FaUserAlt>
+                )}
+
+                <>
+                  {user?.uid ? (
+                    <>
+                      <span>{user?.displayName}</span>
+                      <button
+                        onClick={handleLogOut}
+                        variant="light"
+                        className=""
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link className="text-decoration-none pe-2" to="/login">
+                        Login
+                      </Link>
+                    </>
+                  )}
+                </>
+              </div>
             </li>
           </ul>
           <div className="lg:hidden">
