@@ -1,6 +1,16 @@
+# Course Hub
+
+### Live link -->
+
+### Server link -->
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+- In this project we display the six core topics which are loaded by the custom api.
+- Moreover you can select a topic.
+- And this project is fully resposive for small, medium & large devices.
 
 ## Available Scripts
 
