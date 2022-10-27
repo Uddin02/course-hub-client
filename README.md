@@ -1,8 +1,8 @@
 # Course Hub
 
-### Live link -->
+### Live link --> https://course-hub-74fb9.web.app/
 
-### Server link -->
+### Server link --> https://course-hub-server-chi.vercel.app/
 
 # Getting Started with Create React App
 

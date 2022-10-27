@@ -11,20 +11,20 @@ const Login = () => {
   
   const {signIn, setLoading, signInWithGoogle } = useContext(AuthContext);
 
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || '/';
 
-    const handleGoogleSignIn = () =>{
-      signInWithGoogle()
-      navigate(from, {replace: true})
-      .then (result => {
-        const user = result.user;
-        console.log(user);
-      })
-      .catch(error => console.error(error));
-    }
+  const handleGoogleSignIn = () =>{
+    signInWithGoogle()
+    navigate(from, {replace: true})
+    .then (result => {
+      const user = result.user;
+      console.log(user);
+    })
+    .catch(error => console.error(error));
+  }
 
 
     const handleSubmit = event =>{
