@@ -1,23 +1,36 @@
 import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
+import Pdf from "../Pdf";
+// import image from "../../../assets/cover photo-2.png";
 
 const CourseDetails = () => {
   const courseDetails = useLoaderData();
-  const { title, duration, details, thumbnails } = courseDetails;
   // console.log(courseDetails);
+  const { title, duration, details, thumbnails, course_fee } = courseDetails;
+
+  const handleCheckOut = () =>{
+    toast.success('Thanks for purachsing this course')
+  }
   return (
-    <div className="lg:grid justify-center mb-10 mt-10">
-      <div className="card card-compact w-96 bg-base-100 shadow-xl">
+    <div className="grid justify-center items-center lg:mt-10 lg:mb-10">
+      {/* <img className="h-6/12 w-full" src={image} alt="" /> */}
+      <div className="card lg:card-side bg-base-100 shadow-xl max-w-4xl mb-6">
         <figure>
-          <img className="rounded-t-box" src={thumbnails} alt="Shoes" />
+          <img className="w-80" src={thumbnails} alt="Album" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{title}</h2>
+          <div className="flex justify-between items-center mb-5">
+            <h2 className="card-title text-2xl">{title}</h2>
+            <Pdf />
+          </div>
           <p className="text-justify">{details}</p>
-          <div className="card-actions justify-around">
-            <p className="text-lg">Duration: {duration}</p>
-            <button className="btn  btn-outline btn-info">
-              Register
-            </button>
+
+          <div className="card-actions justify-between">
+            <span>
+              <p>Duration: {duration}</p>
+              <p>Course Fee: {course_fee}</p>
+            </span>
+            <button onClick={handleCheckOut} className="btn  btn-outline btn-info">Checkout</button>
           </div>
         </div>
       </div>

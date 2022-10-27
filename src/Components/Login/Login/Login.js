@@ -9,12 +9,22 @@ import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 
 const Login = () => {
   
-  const {signIn, setLoading} = useContext(AuthContext);
+  const {signIn, setLoading, signInWithGoogle } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || '/';
+
+    const handleGoogleSignIn = () =>{
+      signInWithGoogle()
+      navigate(from, {replace: true})
+      .then (result => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch(error => console.error(error));
+    }
 
 
     const handleSubmit = event =>{
@@ -191,9 +201,9 @@ const Login = () => {
                       </svg>
                     </Link>
                   </li>
-                  <li className="px-2 w-full">
+                  <li onClick={handleGoogleSignIn} className="px-2 w-full">
                     <Link
-                      href="#"
+                    
                       className="
                             flex
                             h-11

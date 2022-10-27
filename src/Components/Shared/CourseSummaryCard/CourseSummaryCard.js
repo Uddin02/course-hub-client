@@ -16,7 +16,7 @@ const CourseSummaryCard = ({ course }) => {
 
         <div className="card-actions justify-around">
           <p>Duration: {duration}</p>
-          <Link to={`/coursesDetails/${_id}`}><button className="btn  btn-outline btn-info">Register</button></Link>
+          <Link to={`/coursesDetails/${_id}`}><button className="btn  btn-outline btn-info">View details</button></Link>
         </div>
       </div>
     </div>
