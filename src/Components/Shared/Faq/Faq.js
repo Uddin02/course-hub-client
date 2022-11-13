@@ -1,7 +1,9 @@
 import React from 'react';
 import FaqImage from "../../../assets/FAQs.png";
+import useTitle from '../../../hooks/useTitle';
 
 const Faq = () => {
+  useTitle('FAQ')
     return (
         <div className='mb-8'>
                 <p className='lg:text-5xl mt-8 mb-5 text-center'>Frequently Asked Questions</p>

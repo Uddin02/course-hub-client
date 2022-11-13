@@ -7,7 +7,7 @@ const LeftSideNav = () => {
   // console.log(categories)
 
   useEffect(() => {
-    fetch("http://localhost:5000/course-categories")
+    fetch("https://course-hub-server-chi.vercel.app/course-categories")
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);

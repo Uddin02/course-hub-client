@@ -11,9 +11,10 @@ import "swiper/css/pagination";
 const Carousel = () => {
   const [categories, setCategories] = useState([]);
   // console.log(categories)
+  
 
   useEffect(() => {
-    fetch("http://localhost:5000/course-categories")
+    fetch("https://course-hub-server-chi.vercel.app/course-categories")
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);
@@ -41,7 +42,7 @@ const Carousel = () => {
                   Click the button below to view the courses in this category.
                 </p>{" "}
                 <div className="card-actions justify-start">
-                  <button className="text-sky-400"><Link to='/courses'>Know more</Link></button>
+                  <button className="text-sky-400"><Link to={`/category/${category.id}`}>Know more</Link></button>
                 </div>
               </div>
             </div>

@@ -3,9 +3,11 @@ import student1 from "../../assets/student/student-1.png";
 import student2 from "../../assets/student/student-2.png";
 import student3 from "../../assets/student/student-3.png";
 import Image from "../../assets/Team goals-rafiki.png";
+import useTitle from "../../hooks/useTitle";
 import Carousel from "./Carousel";
 
 const Home = () => {
+  useTitle('Home')
   return (
     <div className="m-4">
       <div className="lg:flex flex-row-reverse justify-center items-center">

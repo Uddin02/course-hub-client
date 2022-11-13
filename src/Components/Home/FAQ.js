@@ -1,6 +1,8 @@
 import React from "react";
+import useTitle from "../../hooks/useTitle";
 
 const FAQ = () => {
+  useTitle('FAQ')
   return (
     <div className="lg:w-6/12">
       <div
@@ -8,7 +10,7 @@ const FAQ = () => {
         className="collapse collapse-arrow border border-base-300 bg-base-100 "
       >
         <div className="collapse-title text-xl font-medium">
-          What is course hubs’s Free Courses initiative all about?
+          What is course hubs's Free Courses initiative all about?
         </div>
         <div className="collapse-content text-justify">
           <p tabIndex={0}>

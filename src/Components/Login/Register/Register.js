@@ -5,9 +5,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Logo from "../../../assets/CourseHub.png";
 import Image from "../../../assets/login.png";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
+import useTitle from "../../../hooks/useTitle";
 
 const Register = () => {
-
+  useTitle('Signup')
   const { createUser, updateUserProfile, verifyEmail } = useContext(AuthContext);
 
   const handleSubmit = (event) => {

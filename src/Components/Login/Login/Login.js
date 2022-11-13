@@ -1,58 +1,72 @@
 import { useContext } from "react";
+import { FaGithub } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import Logo from "../../../assets/CourseHub.png";
 import Image from "../../../assets/login.png";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
-
+import useTitle from "../../../hooks/useTitle";
 
 const Login = () => {
-  
-  const {signIn, setLoading, signInWithGoogle } = useContext(AuthContext);
+  useTitle('Login')
+  const { signIn, setLoading, signInWithGoogle, signInWithGithub, setUser } =
+    useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || "/";
 
-  const handleGoogleSignIn = () =>{
+  const handleGoogleSignIn = () => {
     signInWithGoogle()
-    navigate(from, {replace: true})
-    .then (result => {
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+        toast.success("Login successful");
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleGithubSignIn = () => {
+    signInWithGithub()
+    .then((result) =>{
       const user = result.user;
-      console.log(user);
+      setUser(user);
+      console.log(user)
+      navigate(from, { replace: true });
+      toast.success("Login successful");
     })
-    .catch(error => console.error(error));
-  }
+    .catch((error) => console.error(error));
+  };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset();
+        // navigate(from, {replace: true});
+        if (user.emailVerified) {
+          navigate(from, { replace: true });
+          toast.success("Login successful");
+        } else {
+          // ,{position: "top-right"}
+          toast.error(
+            "Your email is not verified. Please verify your email address."
+          );
+        }
+      })
+      .catch((error) => toast(error.message))
 
-    const handleSubmit = event =>{
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        signIn(email, password)
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-            form.reset();
-            // navigate(from, {replace: true});
-            if(user.emailVerified){
-                navigate(from, {replace: true});
-                toast.success('Login successful')
-            }
-            else{
-                // ,{position: "top-right"}
-                toast.error('Your email is not verified. Please verify your email address.')
-            }
-
-        })
-        .catch(error => toast(error.message))
-        
-        .finally(() => {
-          setLoading(false);
-        })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -147,7 +161,7 @@ const Login = () => {
                   </p>
                 </div>
                 <ul className="flex justify-between -mx-2 mb-5 pt-3">
-                  <li className="px-2 w-full">
+                  <li onClick={handleGithubSignIn} className="px-2 w-full">
                     <Link
                       href="#"
                       className="
@@ -156,22 +170,11 @@ const Login = () => {
                             items-center
                             justify-center
                             rounded-md
-                            bg-[#4064AC]
+                            bg-[#bbbbbd]
                             hover:bg-opacity-90
                             "
                     >
-                      <svg
-                        width="10"
-                        height="20"
-                        viewBox="0 0 10 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.29878 8H7.74898H7.19548V7.35484V5.35484V4.70968H7.74898H8.91133C9.21575 4.70968 9.46483 4.45161 9.46483 4.06452V0.645161C9.46483 0.290323 9.24343 0 8.91133 0H6.89106C4.70474 0 3.18262 1.80645 3.18262 4.48387V7.29032V7.93548H2.62912H0.747223C0.359774 7.93548 0 8.29032 0 8.80645V11.129C0 11.5806 0.304424 12 0.747223 12H2.57377H3.12727V12.6452V19.129C3.12727 19.5806 3.43169 20 3.87449 20H6.47593C6.64198 20 6.78036 19.9032 6.89106 19.7742C7.00176 19.6452 7.08478 19.4194 7.08478 19.2258V12.6774V12.0323H7.66596H8.91133C9.2711 12.0323 9.54785 11.7742 9.6032 11.3871V11.3548V11.3226L9.99065 9.09677C10.0183 8.87097 9.99065 8.6129 9.8246 8.35484C9.76925 8.19355 9.52018 8.03226 9.29878 8Z"
-                          fill="white"
-                        />
-                      </svg>
+                      <FaGithub/>
                     </Link>
                   </li>
                   <li className="px-2 w-full">
@@ -203,7 +206,6 @@ const Login = () => {
                   </li>
                   <li onClick={handleGoogleSignIn} className="px-2 w-full">
                     <Link
-                    
                       className="
                             flex
                             h-11
